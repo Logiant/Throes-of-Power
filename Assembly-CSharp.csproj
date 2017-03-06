@@ -45,12 +45,19 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\CityScript.cs" />
-     <Compile Include="Assets\HeightMap.cs" />
-     <Compile Include="Assets\TerrainRender.cs" />
-     <Compile Include="Assets\Water\Scripts\Water.cs" />
-     <Compile Include="Assets\WorldResources.cs" />
-     <None Include="Assets\Water\Shaders\FXWaterPro.shader" />
+     <Compile Include="Assets\Objects\Water\Scripts\Water.cs" />
+     <Compile Include="Assets\Scripts\CityScript.cs" />
+     <Compile Include="Assets\Scripts\HeightMap.cs" />
+     <Compile Include="Assets\Scripts\Resources\Fabric.cs" />
+     <Compile Include="Assets\Scripts\Resources\Food.cs" />
+     <Compile Include="Assets\Scripts\Resources\Luxury.cs" />
+     <Compile Include="Assets\Scripts\Resources\Mineral.cs" />
+     <Compile Include="Assets\Scripts\Resources\ResourceMaster.cs" />
+     <Compile Include="Assets\Scripts\Resources\ResourceObject.cs" />
+     <Compile Include="Assets\Scripts\TerrainRender.cs" />
+     <Compile Include="Assets\Scripts\UI\CityInfoPanel.cs" />
+     <Compile Include="Assets\Scripts\UI\UIBase.cs" />
+     <None Include="Assets\Objects\Water\Shaders\FXWaterPro.shader" />
      <None Include="Assets\Shaders\Terrain.shader" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>

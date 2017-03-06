@@ -5,6 +5,11 @@ public class CityScript : MonoBehaviour {
 
 	TerrainRender terrain;
 
+	string cityName;
+
+	//float harvest_radius???
+	//list of child resources???
+
 	// Use this for initialization
 	void Start () {
 	
@@ -16,11 +21,16 @@ public class CityScript : MonoBehaviour {
 
 		transform.position = pos;
 
+		cityName = "Village";
 
 	}
 	
 	// Update is called once per frame
 	void Update () {
 	
+	}
+
+	public string getName() {
+		return cityName;
 	}
 }

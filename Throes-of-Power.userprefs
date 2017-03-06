@@ -1,11 +1,16 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\WorldResources.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\CityScript.cs">
     <Files>
-      <File FileName="Assets\TerrainRender.cs" Line="1" Column="1" />
-      <File FileName="Assets\HeightMap.cs" Line="1" Column="1" />
-      <File FileName="Assets\CityScript.cs" Line="1" Column="1" />
-      <File FileName="Assets\WorldResources.cs" Line="34" Column="80" />
+      <File FileName="Assets\Scripts\Resources\ResourceObject.cs" Line="13" Column="30" />
+      <File FileName="Assets\Scripts\Resources\ResourceMaster.cs" Line="39" Column="4" />
+      <File FileName="Assets\Scripts\Resources\Mineral.cs" Line="15" Column="58" />
+      <File FileName="Assets\Scripts\Resources\Luxury.cs" Line="10" Column="1" />
+      <File FileName="Assets\Scripts\Resources\Food.cs" Line="16" Column="1" />
+      <File FileName="Assets\Scripts\Resources\Fabric.cs" Line="16" Column="1" />
+      <File FileName="Assets\Scripts\CityScript.cs" Line="11" Column="30" />
+      <File FileName="Assets\Scripts\UI\UIBase.cs" Line="29" Column="32" />
+      <File FileName="Assets\Scripts\UI\CityInfoPanel.cs" Line="11" Column="20" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
