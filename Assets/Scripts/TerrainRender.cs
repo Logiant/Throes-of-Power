@@ -81,7 +81,7 @@ public class TerrainRender : MonoBehaviour {
 
 		mesh.RecalculateNormals ();
 		mesh.RecalculateBounds ();
-		mesh.Optimize ();
+		;
 
 		Debug.Log (mesh.triangles.Length + " triangles");
 
@@ -110,6 +110,33 @@ public class TerrainRender : MonoBehaviour {
 				for (int j = 0; j < height; j++) {
 					drawOutline (new Vector3 (verts [i, j].x, verts [i, j].y, verts [i, j].z));	
 				}
+			}
+		}
+	}
+
+
+	void OnDrawGizmos() {
+		//loop through all the spaces
+		float y = 0;
+		for (int i = 0; i < width; i++) {
+			for (int j = 0; j < height; j++) {
+				y = Sample (i * tile_size, j * tile_size);
+				//default to red color
+				Color gc = Color.red;
+				//check for flatness and water?  -- these should match the shader, probably
+				if (y <= 0.01) { // water tile
+					gc = Color.blue;
+				} else if (y > 0.675*maxHeight) { // mountain peak tile
+					gc = Color.gray;
+				} else if (false) { // steep slope
+
+				}
+
+
+				gc.a = 0.5f;
+				Gizmos.color = gc;
+
+				Gizmos.DrawSphere(new Vector3(i*tile_size, y, j*tile_size), tile_size/2);
 			}
 		}
 	}

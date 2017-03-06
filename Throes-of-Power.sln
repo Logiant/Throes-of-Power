@@ -1,7 +1,7 @@
+﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2008
-
-Project("{7F059DAA-9B90-8D34-D58B-421CBD6D8ABD}") = "Throes-of-Power", "Assembly-CSharp.csproj", "{2EB01B90-07CA-FDEF-36A0-AEBD0EC768CD}"
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Throes-of-Power", "Assembly-CSharp.csproj", "{2EB01B90-07CA-FDEF-36A0-AEBD0EC768CD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
