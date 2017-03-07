@@ -3,7 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 
 [RequireComponent(typeof(MeshFilter))]
-public class TerrainRender : MonoBehaviour {
+public class TerrainMaster : MonoBehaviour {
+
+	//data storage object for Tiles
+	public struct Tile {
+		public static float size;
+		public float x, y, z;
+		public float slope; //TODO this should be a grade or an angle
+	}
+
 
 	public Texture2D image;
 
@@ -16,16 +24,17 @@ public class TerrainRender : MonoBehaviour {
 
 	HeightMap map;
 
-	Vertex[,] verts;
+//	Vertex[,] verts;
+	Tile[,] tiles;
 
 	int width = 10;   //height in units
 	int height = 10;  //width in units
 
 	static float tile_size = 0.25f; //height of the tile
 
-	struct Vertex {
-		public float x, y, z;
-	}
+//	struct Vertex {
+//		public float x, y, z;
+//	}
 
 	public float Sample(float x, float y) {
 		return map.sample (x, y);
@@ -33,6 +42,8 @@ public class TerrainRender : MonoBehaviour {
 
 	// Use this for initialization
 	void Awake () {
+
+		Tile.size = tile_size;
 
 		//unpack the image
 		imageValues = new float[image.width, image.height];
@@ -54,16 +65,16 @@ public class TerrainRender : MonoBehaviour {
 
 
 
-		verts = new Vertex[width, height];
+		tiles = new Tile[width, height];
 
 		for (int i = 0; i < width; i++) {
 			for (int j = 0; j < height; j++) {
-				verts [i, j] = new Vertex ();
+				tiles [i, j] = new Tile ();
 
-				verts [i, j].x = i*tile_size;
-				verts [i, j].z = j*tile_size;
+				tiles [i, j].x = i*tile_size;
+				tiles [i, j].z = j*tile_size;
 
-				verts [i, j].y = 0;
+				tiles [i, j].y = Sample(i*tile_size, j*tile_size);
 			}
 		}
 
@@ -75,13 +86,22 @@ public class TerrainRender : MonoBehaviour {
 
 		for (int i = 0; i < width; i++) {
 			for (int j = 0; j < height; j++) {
-				addTile (i, j, new Vector3 (verts [i, j].x, verts [i, j].y, verts [i, j].z), ref mesh);
+				addTile (i, j, new Vector3 (tiles [i, j].x, tiles [i, j].y, tiles [i, j].z), ref mesh);
+				//calculate tile slope
+				if (i == 0 || i == width - 1 || j == 0 || j == height - 1) {
+					tiles [i, j].slope = 0f;
+				} else {
+					//2nd order center difference method
+					float dydx = (tiles[i+1,j].y - tiles[i-1,j].y) / (2*Tile.size);
+					float dydz = (tiles[i,j+1].y - tiles[i,j+1].y) / (2*Tile.size);
+					tiles [i, j].slope = Mathf.Sqrt(dydx*dydx + dydz*dydz);
+				}
 			}
 		}
 
 		mesh.RecalculateNormals ();
 		mesh.RecalculateBounds ();
-		;
+
 
 		Debug.Log (mesh.triangles.Length + " triangles");
 
@@ -108,7 +128,7 @@ public class TerrainRender : MonoBehaviour {
 		if (debug) {
 			for (int i = 0; i < width; i++) {
 				for (int j = 0; j < height; j++) {
-					drawOutline (new Vector3 (verts [i, j].x, verts [i, j].y, verts [i, j].z));	
+					drawOutline (new Vector3 (tiles [i, j].x, tiles [i, j].y, tiles [i, j].z));	
 				}
 			}
 		}
@@ -128,8 +148,8 @@ public class TerrainRender : MonoBehaviour {
 					gc = Color.blue;
 				} else if (y > 0.675*maxHeight) { // mountain peak tile
 					gc = Color.gray;
-				} else if (false) { // steep slope
-
+				} else if (tiles[i,j].slope < 0.5f) { // steep slope
+					gc = Color.green;
 				}
 
 
@@ -157,10 +177,10 @@ public class TerrainRender : MonoBehaviour {
 		v2 = pos + new Vector3 (0, 0, tile_size);
 		v3 = pos + new Vector3 (tile_size, 0, tile_size);
 		v4 = pos + new Vector3 (tile_size, 0, 0);
-		v1.y = map.sample (v1.x, v1.z);
-		v2.y = map.sample (v2.x, v2.z);
-		v3.y = map.sample (v3.x, v3.z);
-		v4.y = map.sample (v4.x, v4.z);
+//		v1.y = map.sample (v1.x, v1.z);
+//		v2.y = map.sample (v2.x, v2.z);
+//		v3.y = map.sample (v3.x, v3.z);
+//		v4.y = map.sample (v4.x, v4.z);
 
 		float[] ys = { v1.y, v2.y, v3.y, v4.y, maxHeight };
 

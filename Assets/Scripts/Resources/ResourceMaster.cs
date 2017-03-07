@@ -4,7 +4,7 @@ using System.Collections;
 public class ResourceMaster : MonoBehaviour {
 
 	//terrain parent
-	TerrainRender terrain;
+	TerrainMaster terrain;
 
 	// types of resources: mineral, fabric, food, luxury
 	//prefabs for resources:
@@ -20,7 +20,7 @@ public class ResourceMaster : MonoBehaviour {
 	}
 
 	void Start() {
-		terrain = GetComponentInParent<TerrainRender> ();
+		terrain = GetComponentInParent<TerrainMaster> ();
 		//spawn some prefabs!
 		for (int i = 0; i < 3; i++) {
 			// position is (1,3)  to (8,6)

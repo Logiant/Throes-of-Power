@@ -3,7 +3,7 @@ using System.Collections;
 
 public class CityScript : MonoBehaviour {
 
-	TerrainRender terrain;
+	TerrainMaster terrain;
 
 	string cityName;
 
@@ -13,7 +13,7 @@ public class CityScript : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 	
-		terrain = GameObject.FindGameObjectWithTag ("Terrain").GetComponent<TerrainRender>();
+		terrain = GameObject.FindGameObjectWithTag ("Terrain").GetComponent<TerrainMaster>();
 
 
 		Vector3 pos = transform.position;

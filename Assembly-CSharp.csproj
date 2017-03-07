@@ -55,7 +55,7 @@
      <Compile Include="Assets\Scripts\Resources\Mineral.cs" />
      <Compile Include="Assets\Scripts\Resources\ResourceMaster.cs" />
      <Compile Include="Assets\Scripts\Resources\ResourceObject.cs" />
-     <Compile Include="Assets\Scripts\TerrainRender.cs" />
+     <Compile Include="Assets\Scripts\TerrainMaster.cs" />
      <Compile Include="Assets\Scripts\UI\CityInfoPanel.cs" />
      <Compile Include="Assets\Scripts\UI\UIBase.cs" />
      <None Include="Assets\Objects\Water\Shaders\FXWaterPro.shader" />

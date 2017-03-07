@@ -58,4 +58,4 @@ public class HeightMap {
 
 		return heights[x_i,y_i];
 	}
-	}
+}
