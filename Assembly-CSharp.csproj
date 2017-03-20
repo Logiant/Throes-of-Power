@@ -49,6 +49,7 @@
      <Compile Include="Assets\Objects\Water\Scripts\Water.cs" />
      <Compile Include="Assets\Scripts\CityScript.cs" />
      <Compile Include="Assets\Scripts\HeightMap.cs" />
+     <Compile Include="Assets\Scripts\PathingMaster.cs" />
      <Compile Include="Assets\Scripts\Resources\Fabric.cs" />
      <Compile Include="Assets\Scripts\Resources\Food.cs" />
      <Compile Include="Assets\Scripts\Resources\Luxury.cs" />

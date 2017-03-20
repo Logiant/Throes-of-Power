@@ -84,6 +84,10 @@ public class TerrainMaster : MonoBehaviour {
 		return tiles [i, j];
 	}
 
+	public Vector2 getExtents() {
+		return new Vector2 (width, height);
+	}
+
 	// Use this for initialization
 	void Awake () {
 
