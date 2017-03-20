@@ -22,22 +22,31 @@ public class ResourceMaster : MonoBehaviour {
 	void Start() {
 		terrain = GetComponentInParent<TerrainMaster> ();
 		//spawn some prefabs!
+		//this should use height && slope data to position the resources
+		//for various resources:
+		/*  
+		 *  Fabric: flat/hilly
+		 *  Food:   flat/hilly
+		 *  Luxury:	mostly flat
+		 *  Mineral:mostly steep
+		 * 
+		 */ 
 		for (int i = 0; i < 3; i++) {
 			// position is (1,3)  to (8,6)
-			Vector3 spawnPt = new Vector3 (Random.Range(1f, 8f), 0.0f, Random.Range(3f, 6f));
-			spawnPt.y = terrain.Sample (spawnPt.x, spawnPt.z);
+			Vector3 spawnPt = terrain.getTileOfType(TerrainMaster.TILE_TYPES.GRASSLAND);
+		//	spawnPt.y = terrain.Sample (spawnPt.x, spawnPt.z);
 			Instantiate (mineralPrefab, spawnPt, new Quaternion ());
 
-			spawnPt = new Vector3 (Random.Range(1f, 8f), 0.0f, Random.Range(3f, 6f));
-			spawnPt.y = terrain.Sample (spawnPt.x, spawnPt.z);
+			spawnPt = terrain.getTileOfType(TerrainMaster.TILE_TYPES.GRASSLAND);
+		//	spawnPt.y = terrain.Sample (spawnPt.x, spawnPt.z);
 			Instantiate (fabricPrefab, spawnPt, new Quaternion ());
 
-			spawnPt = new Vector3 (Random.Range(1f, 8f), 0.0f, Random.Range(3f, 6f));
-			spawnPt.y = terrain.Sample (spawnPt.x, spawnPt.z);
+			spawnPt = terrain.getTileOfType(TerrainMaster.TILE_TYPES.GRASSLAND);
+		//	spawnPt.y = terrain.Sample (spawnPt.x, spawnPt.z);
 			Instantiate (foodPrefab, spawnPt, new Quaternion ());
 
-			spawnPt = new Vector3 (Random.Range(1f, 8f), 0.0f, Random.Range(3f, 6f));
-			spawnPt.y = terrain.Sample (spawnPt.x, spawnPt.z);
+			spawnPt = terrain.getTileOfType(TerrainMaster.TILE_TYPES.GRASSLAND);
+		//	spawnPt.y = terrain.Sample (spawnPt.x, spawnPt.z);
 			Instantiate (luxuryPrefab, spawnPt, new Quaternion ());
 		}
 	}

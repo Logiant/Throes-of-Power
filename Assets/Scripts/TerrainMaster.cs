@@ -9,16 +9,21 @@ public class TerrainMaster : MonoBehaviour {
 	public struct Tile {
 		public static float size;
 		public float x, y, z;
-		public float slope; //TODO this should be a grade or an angle
+		public float slope; //TODO this should be a grade or an angle?
+		public bool occupied;
+		public TILE_TYPES type;
 	}
 
+	public enum TILE_TYPES {
+		GRASSLAND, HILLS, MOUNTAINS, WATER
+	}
+	//TODO maybe put a list of each type of tile up here?
 
 	public Texture2D image;
 
 	public bool debug = false;
 
 	float maxHeight = 0.0001f;
-
 
 	float[,] imageValues;
 
@@ -38,6 +43,45 @@ public class TerrainMaster : MonoBehaviour {
 
 	public float Sample(float x, float y) {
 		return map.sample (x, y);
+	}
+
+	/*getTileWithSpecifications(max_height, max_slope)
+	 *	int max tries
+	 *	Vector3 pos = 000.
+	 *	//loop through
+	 *		//check conditions
+	 *		//set position
+	 *		//set occupied
+	 *	//return position
+	 *	
+	*/
+
+	public Vector3 getTileOfType(TILE_TYPES type) {
+		Vector3 pos = new Vector3 ();
+
+		List<Tile> availableTiles = new List<Tile>();
+
+		for (int i = 0; i < tiles.GetLength(0); i++) {
+			for (int j = 0; j < tiles.GetLength(1); j++) {
+				if (tiles [i, j].type == type && !tiles[i,j].occupied) {
+					availableTiles.Add (tiles [i, j]);
+				}
+			}
+		}
+
+		if (availableTiles.Count > 0) {
+			Tile selected = availableTiles [Random.Range (0, availableTiles.Count)];
+			pos = new Vector3 (selected.x, selected.y, selected.z);
+		}
+
+		return pos;
+	}
+
+
+	public Tile getTile(float x, float z) {
+		int i = (int)(x/Tile.size);
+		int j = (int)(z/Tile.size);
+		return tiles [i, j];
 	}
 
 	// Use this for initialization
@@ -70,6 +114,7 @@ public class TerrainMaster : MonoBehaviour {
 		for (int i = 0; i < width; i++) {
 			for (int j = 0; j < height; j++) {
 				tiles [i, j] = new Tile ();
+				tiles [i, j].occupied = false;
 
 				tiles [i, j].x = i*tile_size;
 				tiles [i, j].z = j*tile_size;
@@ -95,6 +140,16 @@ public class TerrainMaster : MonoBehaviour {
 					float dydx = (tiles[i+1,j].y - tiles[i-1,j].y) / (2*Tile.size);
 					float dydz = (tiles[i,j+1].y - tiles[i,j+1].y) / (2*Tile.size);
 					tiles [i, j].slope = Mathf.Sqrt(dydx*dydx + dydz*dydz);
+				}
+				//Set tile types
+				if (tiles [i, j].y <= 0.01) { // water tile
+					tiles [i, j].type = TILE_TYPES.WATER;
+				} else if (tiles [i, j].y > 0.675 * maxHeight) { // mountain peak tile
+					tiles [i, j].type = TILE_TYPES.MOUNTAINS;
+				} else if (tiles [i, j].slope < 0.5f) { // shallow slope
+					tiles [i, j].type = TILE_TYPES.GRASSLAND;
+				} else {
+					tiles [i, j].type = TILE_TYPES.HILLS;
 				}
 			}
 		}
@@ -144,12 +199,14 @@ public class TerrainMaster : MonoBehaviour {
 				//default to red color
 				Color gc = Color.red;
 				//check for flatness and water?  -- these should match the shader, probably
-				if (y <= 0.01) { // water tile
+				if (tiles[i,j].type == TILE_TYPES.WATER) { // water tile
 					gc = Color.blue;
-				} else if (y > 0.675*maxHeight) { // mountain peak tile
-					gc = Color.gray;
-				} else if (tiles[i,j].slope < 0.5f) { // steep slope
+				} else if (tiles[i,j].type == TILE_TYPES.GRASSLAND) { // mountain peak tile
 					gc = Color.green;
+				} else if (tiles[i,j].type == TILE_TYPES.MOUNTAINS) { // steep slope
+					gc = Color.gray;
+				} else if (tiles[i,j].type == TILE_TYPES.HILLS) { // steep slope
+					gc = Color.red;
 				}
 
 
